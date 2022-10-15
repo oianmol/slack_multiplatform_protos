@@ -42,9 +42,9 @@ message SKUser {
   string avatarUrl = 10;
 }
 
-message ChangeInSKUser{
-  SKUser old = 1;
-  SKUser recent = 2;
+message SKUserChangeSnapshot{
+  SKUser previous = 1;
+  SKUser latest = 2;
 }
 
 message SKChannel {
@@ -147,7 +147,7 @@ service MessagesService{
 
 service UsersService{
   rpc getUsers(SKWorkspaceChannelRequest) returns (SKUsers);
-  rpc registerChangeInUsers(SKWorkspaceChannelRequest) returns (stream ChangeInSKUser);
+  rpc registerChangeInUsers(SKWorkspaceChannelRequest) returns (stream SKUserChangeSnapshot);
   rpc saveUser(SKUser) returns (SKUser);
   rpc currentLoggedInUser(Empty) returns (SKUser);
 }
