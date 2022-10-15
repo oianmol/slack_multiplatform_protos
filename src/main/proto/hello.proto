@@ -145,7 +145,7 @@ service WorkspaceService {
 }
 
 service ChannelsService{
-  rpc getChannels(SKChannelRequest) returns (stream SKChannels);
+  rpc getChannels(SKChannelRequest) returns (SKChannels);
   rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
   rpc saveChannel(SKChannel) returns (SKChannel);
 }
