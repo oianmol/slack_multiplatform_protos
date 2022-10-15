@@ -14,6 +14,7 @@ message SKMessage {
   int64 createdDate = 7;
   int64 modifiedDate = 8;
   SKUser senderInfo = 9;
+  bool isDeleted = 10;
 }
 
 message SKLastMessage {
@@ -26,7 +27,8 @@ message SKWorkspace {
   string name = 2;
   string domain = 3;
   string picUrl = 4;
-  bool lastSelected = 5;
+  int64 modifiedTime = 5;
+  bool isDeleted = 6;
 }
 
 message SKUser {
@@ -40,7 +42,29 @@ message SKUser {
   int64 userSince = 8;
   string phone = 9;
   string avatarUrl = 10;
+  bool isDeleted = 11;
 }
+
+message SKUserChangeSnapshot{
+  SKUser previous = 1;
+  SKUser latest = 2;
+}
+
+message SKWorkspaceChangeSnapshot{
+  SKWorkspace previous = 1;
+  SKWorkspace latest = 2;
+}
+
+message SKMessageChangeSnapshot{
+  SKMessage previous = 1;
+  SKMessage latest = 2;
+}
+
+message SKChannelChangeSnapshot{
+  SKChannel previous = 1;
+  SKChannel latest = 2;
+}
+
 
 message SKChannel {
   string uuid = 1;
@@ -54,6 +78,7 @@ message SKChannel {
   bool isShareOutSide = 9;
   bool isOneToOne = 10;
   string avatarUrl = 11;
+  bool isDeleted = 12;
 }
 
 message SKWorkspaces {
@@ -89,13 +114,20 @@ message SKAuthResult{
   SKStatus status = 3;
 }
 
+message SKPagedRequest{
+  int32 offset = 1;
+  int32 limit = 2;
+}
+
 message SKWorkspaceChannelRequest{
   string workspaceId = 1;
   string channelId = 2;
+  SKPagedRequest paged = 3;
 }
 
 message SKChannelRequest{
   string workspaceId = 1;
+  SKPagedRequest paged = 2;
 }
 
 message SKCreateWorkspaceRequest{
@@ -110,29 +142,39 @@ message Empty {
 message SKFindWorkspacesRequest{
   string email = 1;
   string name = 2;
+  SKPagedRequest paged = 3;
 }
 
 service WorkspaceService {
-  rpc getWorkspaces(Empty) returns (stream SKWorkspaces);
+  rpc getWorkspaces(Empty) returns (SKWorkspaces);
+  rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspaceChangeSnapshot);
   rpc saveWorkspace(SKCreateWorkspaceRequest) returns (SKAuthResult);
   rpc findWorkspacesForEmail(SKFindWorkspacesRequest) returns(SKWorkspaces);
   rpc findWorkspaceForName(SKFindWorkspacesRequest) returns(SKWorkspace);
+  rpc updateWorkspace(SKWorkspace) returns(SKWorkspace);
 }
 
 service ChannelsService{
-  rpc getChannels(SKChannelRequest) returns (stream SKChannels);
+  rpc getChannels(SKChannelRequest) returns (SKChannels);
+  rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
   rpc saveChannel(SKChannel) returns (SKChannel);
+  rpc updateSKChannel(SKChannel) returns(SKChannel);
+
 }
 
 service MessagesService{
-  rpc getMessages(SKWorkspaceChannelRequest) returns (stream SKMessages);
+  rpc getMessages(SKWorkspaceChannelRequest) returns (SKMessages);
+  rpc registerChangeInMessage(SKWorkspaceChannelRequest) returns (stream SKMessageChangeSnapshot);
   rpc saveMessage(SKMessage) returns (SKMessage);
+  rpc updateMessage(SKMessage) returns (SKMessage);
 }
 
 service UsersService{
-  rpc getUsers(SKWorkspaceChannelRequest) returns (stream SKUsers);
+  rpc getUsers(SKWorkspaceChannelRequest) returns (SKUsers);
+  rpc registerChangeInUsers(SKWorkspaceChannelRequest) returns (stream SKUserChangeSnapshot);
   rpc saveUser(SKUser) returns (SKUser);
   rpc currentLoggedInUser(Empty) returns (SKUser);
+  rpc updateSKUser(SKUser) returns(SKUser);
 }
 
 service AuthService {
@@ -140,4 +182,5 @@ service AuthService {
   rpc login(SKAuthUser) returns (SKAuthResult);
   rpc resetPassword(SKAuthUser) returns (SKUser);
   rpc forgotPassword(SKAuthUser) returns (SKUser);
+  rpc changePassword(SKAuthUser) returns (Empty);
 }
