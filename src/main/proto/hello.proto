@@ -140,7 +140,7 @@ service ChannelsService{
 }
 
 service MessagesService{
-  rpc getMessages(SKWorkspaceChannelRequest) returns (stream SKMessages);
+  rpc getMessages(SKWorkspaceChannelRequest) returns (SKMessages);
   rpc registerChangeInMessage(SKWorkspaceChannelRequest) returns (stream SKMessage);
   rpc saveMessage(SKMessage) returns (SKMessage);
 }
