@@ -52,6 +52,11 @@ message SKMessageChangeSnapshot{
   SKMessage latest = 2;
 }
 
+message SKChannelChangeSnapshot{
+  SKChannel previous = 1;
+  SKChannel latest = 2;
+}
+
 
 message SKChannel {
   string uuid = 1;
@@ -141,13 +146,13 @@ service WorkspaceService {
 
 service ChannelsService{
   rpc getChannels(SKChannelRequest) returns (stream SKChannels);
-  rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannel);
+  rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
   rpc saveChannel(SKChannel) returns (SKChannel);
 }
 
 service MessagesService{
   rpc getMessages(SKWorkspaceChannelRequest) returns (SKMessages);
-  rpc registerChangeInMessage(SKWorkspaceChannelRequest) returns (stream SKMessage);
+  rpc registerChangeInMessage(SKWorkspaceChannelRequest) returns (stream SKMessageChangeSnapshot);
   rpc saveMessage(SKMessage) returns (SKMessage);
 }
 
