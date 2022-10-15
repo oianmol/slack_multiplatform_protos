@@ -47,6 +47,12 @@ message SKUserChangeSnapshot{
   SKUser latest = 2;
 }
 
+message SKMessageChangeSnapshot{
+  SKMessage previous = 1;
+  SKMessage latest = 2;
+}
+
+
 message SKChannel {
   string uuid = 1;
   string workspaceId = 2;
