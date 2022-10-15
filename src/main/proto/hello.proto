@@ -89,13 +89,20 @@ message SKAuthResult{
   SKStatus status = 3;
 }
 
+message SKPagedRequest{
+  int32 offset = 1;
+  int32 limit = 2;
+}
+
 message SKWorkspaceChannelRequest{
   string workspaceId = 1;
   string channelId = 2;
+  SKPagedRequest paged = 3;
 }
 
 message SKChannelRequest{
   string workspaceId = 1;
+  SKPagedRequest paged = 2;
 }
 
 message SKCreateWorkspaceRequest{
@@ -110,10 +117,12 @@ message Empty {
 message SKFindWorkspacesRequest{
   string email = 1;
   string name = 2;
+  SKPagedRequest paged = 3;
 }
 
 service WorkspaceService {
   rpc getWorkspaces(Empty) returns (stream SKWorkspaces);
+  rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspace);
   rpc saveWorkspace(SKCreateWorkspaceRequest) returns (SKAuthResult);
   rpc findWorkspacesForEmail(SKFindWorkspacesRequest) returns(SKWorkspaces);
   rpc findWorkspaceForName(SKFindWorkspacesRequest) returns(SKWorkspace);
@@ -121,16 +130,19 @@ service WorkspaceService {
 
 service ChannelsService{
   rpc getChannels(SKChannelRequest) returns (stream SKChannels);
+  rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannel);
   rpc saveChannel(SKChannel) returns (SKChannel);
 }
 
 service MessagesService{
   rpc getMessages(SKWorkspaceChannelRequest) returns (stream SKMessages);
+  rpc registerChangeInMessage(SKWorkspaceChannelRequest) returns (stream SKMessage);
   rpc saveMessage(SKMessage) returns (SKMessage);
 }
 
 service UsersService{
-  rpc getUsers(SKWorkspaceChannelRequest) returns (stream SKUsers);
+  rpc getUsers(SKWorkspaceChannelRequest) returns (SKUsers);
+  rpc registerChangeInUsers(SKWorkspaceChannelRequest) returns (stream SKUser);
   rpc saveUser(SKUser) returns (SKUser);
   rpc currentLoggedInUser(Empty) returns (SKUser);
 }
