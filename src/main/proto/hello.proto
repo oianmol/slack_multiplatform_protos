@@ -126,7 +126,7 @@ message SKFindWorkspacesRequest{
 }
 
 service WorkspaceService {
-  rpc getWorkspaces(Empty) returns (stream SKWorkspaces);
+  rpc getWorkspaces(Empty) returns (SKWorkspaces);
   rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspace);
   rpc saveWorkspace(SKCreateWorkspaceRequest) returns (SKAuthResult);
   rpc findWorkspacesForEmail(SKFindWorkspacesRequest) returns(SKWorkspaces);
