@@ -27,7 +27,7 @@ message SKWorkspace {
   string name = 2;
   string domain = 3;
   string picUrl = 4;
-  bool lastSelected = 5;
+  int64 modifiedTime = 5;
   bool isDeleted = 6;
 }
 
