@@ -15,6 +15,7 @@ message SKMessage {
   int64 modifiedDate = 8;
   SKUser senderInfo = 9;
   bool isDeleted = 10;
+  SKChannel channel = 11;
 }
 
 message SKLastMessage {
