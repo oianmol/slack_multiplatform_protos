@@ -169,7 +169,7 @@ service ChannelsService{
   rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
   rpc saveChannel(SKChannel) returns (SKChannel);
   rpc updateSKChannel(SKChannel) returns(SKChannel);
-  rpc channelMembers(SKChannel) returns(SKChannelMembers);
+  rpc channelMembers(SKWorkspaceChannelRequest) returns(SKChannelMembers);
 }
 
 service MessagesService{
