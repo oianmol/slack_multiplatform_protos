@@ -66,6 +66,15 @@ message SKChannelChangeSnapshot{
   SKChannel latest = 2;
 }
 
+message SKChannelMember{
+  string uuid = 1;
+  string channelId = 2;
+  string memberId = 3;
+}
+
+message SKChannelMembers{
+  repeated SKChannelMember members = 1;
+}
 
 message SKChannel {
   string uuid = 1;
@@ -160,7 +169,7 @@ service ChannelsService{
   rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
   rpc saveChannel(SKChannel) returns (SKChannel);
   rpc updateSKChannel(SKChannel) returns(SKChannel);
-
+  rpc channelMembers(SKChannel) returns(SKChannelMembers);
 }
 
 service MessagesService{
