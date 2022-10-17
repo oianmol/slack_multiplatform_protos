@@ -66,6 +66,11 @@ message SKChannelChangeSnapshot{
   SKChannel latest = 2;
 }
 
+message SKDMChannelChangeSnapshot{
+  SKDMChannel previous = 1;
+  SKDMChannel latest = 2;
+}
+
 message SKChannelMember{
   string uuid = 1;
   string channelId = 2;
@@ -77,6 +82,17 @@ message SKChannelMembers{
   repeated SKChannelMember members = 1;
 }
 
+message SKDMChannel{
+  string uuid = 1;
+  string workspaceId = 2;
+  string senderId = 3;
+  string receiverId = 4;
+  int64 createdDate = 5;
+  int64 modifiedDate = 6;
+  bool isMuted = 7;
+  bool isDeleted = 8;
+}
+
 message SKChannel {
   string uuid = 1;
   string workspaceId = 2;
@@ -84,12 +100,8 @@ message SKChannel {
   int64 createdDate = 4;
   int64 modifiedDate = 5;
   bool isMuted = 6;
-  bool isPrivate = 7;
-  bool isStarred = 8;
-  bool isShareOutSide = 9;
-  bool isOneToOne = 10;
-  string avatarUrl = 11;
-  bool isDeleted = 12;
+  string avatarUrl = 7;
+  bool isDeleted = 8;
 }
 
 message SKWorkspaces {
@@ -102,6 +114,11 @@ message SKUsers {
 
 message SKChannels {
   repeated SKChannel channels = 1;
+}
+
+message SKDMChannels{
+  repeated SKDMChannel channels = 1;
+
 }
 
 message SKMessages{
@@ -138,7 +155,8 @@ message SKWorkspaceChannelRequest{
 
 message SKChannelRequest{
   string workspaceId = 1;
-  SKPagedRequest paged = 2;
+  string channelId = 2;
+  SKPagedRequest paged = 3;
 }
 
 message SKCreateWorkspaceRequest{
@@ -166,10 +184,15 @@ service WorkspaceService {
 }
 
 service ChannelsService{
-  rpc getChannels(SKChannelRequest) returns (SKChannels);
-  rpc registerChangeInChannel(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
-  rpc saveChannel(SKChannel) returns (SKChannel);
-  rpc updateSKChannel(SKChannel) returns(SKChannel);
+  rpc getAllChannels(SKChannelRequest) returns (SKChannels);
+  rpc getAllDMChannels(SKChannelRequest) returns (SKDMChannels);
+
+  rpc registerChangeInDMChannels(SKChannelRequest) returns (stream SKDMChannelChangeSnapshot);
+  rpc registerChangeInChannels(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
+
+  rpc savePublicChannel(SKChannel) returns (SKChannel);
+  rpc saveDMChannel(SKDMChannel) returns(SKDMChannel);
+
   rpc channelMembers(SKWorkspaceChannelRequest) returns(SKChannelMembers);
 }
 
