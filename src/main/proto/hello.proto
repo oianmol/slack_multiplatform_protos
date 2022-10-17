@@ -89,8 +89,7 @@ message SKDMChannel{
   string receiverId = 4;
   int64 createdDate = 5;
   int64 modifiedDate = 6;
-  bool isMuted = 7;
-  bool isDeleted = 8;
+  bool isDeleted = 7;
 }
 
 message SKChannel {
@@ -99,9 +98,8 @@ message SKChannel {
   string name = 3;
   int64 createdDate = 4;
   int64 modifiedDate = 5;
-  bool isMuted = 6;
-  string avatarUrl = 7;
-  bool isDeleted = 8;
+  string avatarUrl = 6;
+  bool isDeleted = 7;
 }
 
 message SKWorkspaces {
