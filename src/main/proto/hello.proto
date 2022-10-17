@@ -9,11 +9,10 @@ message SKMessage {
   string workspaceId = 2;
   string channelId = 3;
   string text = 4;
-  string receiver = 5;
-  string sender = 6;
-  int64 createdDate = 7;
-  int64 modifiedDate = 8;
-  bool isDeleted = 9;
+  string sender = 5;
+  int64 createdDate = 6;
+  int64 modifiedDate = 7;
+  bool isDeleted = 8;
 }
 
 message SKLastMessage {
