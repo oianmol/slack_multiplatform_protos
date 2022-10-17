@@ -191,6 +191,8 @@ service ChannelsService{
   rpc savePublicChannel(SKChannel) returns (SKChannel);
   rpc saveDMChannel(SKDMChannel) returns(SKDMChannel);
 
+  rpc joinChannel(SKChannelMember) returns(SKChannelMember);
+
   rpc channelMembers(SKWorkspaceChannelRequest) returns(SKChannelMembers);
 }
 
