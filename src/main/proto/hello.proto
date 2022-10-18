@@ -143,8 +143,8 @@ message SKPagedRequest{
 }
 
 message SKInviteUserChannel{
-  string user = 1;
-  string channel = 2;
+  string userId = 1;
+  string channelId = 2;
 }
 
 message SKWorkspaceChannelRequest{
