@@ -142,6 +142,11 @@ message SKPagedRequest{
   int32 limit = 2;
 }
 
+message SKInviteUserChannel{
+  string user = 1;
+  string channel = 2;
+}
+
 message SKWorkspaceChannelRequest{
   string workspaceId = 1;
   string channelId = 2;
@@ -189,6 +194,7 @@ service ChannelsService{
   rpc saveDMChannel(SKDMChannel) returns(SKDMChannel);
 
   rpc joinChannel(SKChannelMember) returns(SKChannelMember);
+  rpc inviteUserToChannel(SKInviteUserChannel) returns(SKChannelMembers);
 
   rpc channelMembers(SKWorkspaceChannelRequest) returns(SKChannelMembers);
 }
