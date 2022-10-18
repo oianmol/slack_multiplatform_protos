@@ -63,6 +63,11 @@ message SKChannelChangeSnapshot{
   SKChannel latest = 2;
 }
 
+message SKChannelMemberChangeSnapshot{
+  SKChannelMember previous = 1;
+  SKChannelMember latest = 2;
+}
+
 message SKDMChannelChangeSnapshot{
   SKDMChannel previous = 1;
   SKDMChannel latest = 2;
@@ -189,6 +194,7 @@ service ChannelsService{
 
   rpc registerChangeInDMChannels(SKChannelRequest) returns (stream SKDMChannelChangeSnapshot);
   rpc registerChangeInChannels(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
+  rpc registerChangeInChannelMembers(SKChannelMember) returns (stream SKChannelMemberChangeSnapshot);
 
   rpc savePublicChannel(SKChannel) returns (SKChannel);
   rpc saveDMChannel(SKDMChannel) returns(SKDMChannel);
