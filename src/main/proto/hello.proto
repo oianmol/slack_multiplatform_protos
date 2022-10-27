@@ -4,9 +4,12 @@ package dev.baseio.slackdata.protos;
 
 option java_multiple_files = true;
 
+message SKByteArrayElement{
+  int32 byte = 1;
+}
 
 message SKQrCodeResponse{
-  bytes bitmap = 1;
+  repeated SKByteArrayElement byteArray = 1;
   int64 totalSize = 2;
 }
 
