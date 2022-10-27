@@ -11,13 +11,11 @@ enum RequestType{
 
 message SKQrCodeResponse{
   bytes bitmap = 1;
-  int32 totalSize = 4;
-  int32 validForSeconds = 5;
+  int64 totalSize = 2;
 }
 
 message SKQrCodeGenerator{
   RequestType requestType = 1;
-  int32 chunkSize = 2;
 }
 
 message SKQRAuthVerify{
@@ -249,6 +247,6 @@ service AuthService {
 }
 
 service QrCodeService{
-  rpc generateQRCode(SKQrCodeGenerator) returns (stream SKQrCodeResponse);
+  rpc generateQRCode(SKQrCodeGenerator) returns (SKQrCodeResponse);
   rpc verifyQrCode(SKQRAuthVerify) returns (SKAuthResult);
 }
