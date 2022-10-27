@@ -4,6 +4,26 @@ package dev.baseio.slackdata.protos;
 
 option java_multiple_files = true;
 
+
+enum RequestType{
+  ALLOW_LOGIN = 0;
+}
+
+message SKQrCodeResponse{
+  bytes bitmap = 1;
+  int32 totalSize = 4;
+  int32 validForSeconds = 5;
+}
+
+message SKQrCodeGenerator{
+  RequestType requestType = 1;
+  int32 chunkSize = 2;
+}
+
+message SKQRAuthVerify{
+  string token = 1;
+}
+
 message SKMessage {
   string uuid = 1;
   string workspaceId = 2;
@@ -214,4 +234,9 @@ service AuthService {
   rpc resetPassword(SKAuthUser) returns (SKUser);
   rpc forgotPassword(SKAuthUser) returns (SKUser);
   rpc changePassword(SKAuthUser) returns (Empty);
+}
+
+service QrCodeService{
+  rpc generateQRCode(SKQrCodeGenerator) returns (stream SKQrCodeResponse);
+  rpc verifyQrCode(SKQRAuthVerify) returns (SKAuthResult);
 }
