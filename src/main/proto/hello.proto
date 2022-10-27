@@ -11,6 +11,7 @@ message SKByteArrayElement{
 message SKQrCodeResponse{
   repeated SKByteArrayElement byteArray = 1;
   int64 totalSize = 2;
+  bool isAuthorized = 3;
 }
 
 message SKQrCodeGenerator{
@@ -246,6 +247,6 @@ service AuthService {
 }
 
 service QrCodeService{
-  rpc generateQRCode(SKQrCodeGenerator) returns (SKQrCodeResponse);
+  rpc generateQRCode(SKQrCodeGenerator) returns (stream SKQrCodeResponse);
   rpc verifyQrCode(SKQRAuthVerify) returns (SKAuthResult);
 }
