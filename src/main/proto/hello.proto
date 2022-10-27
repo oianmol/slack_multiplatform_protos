@@ -83,6 +83,11 @@ message SKChannelChangeSnapshot{
   SKChannel latest = 2;
 }
 
+message SKChannelMemberChangeSnapshot{
+  SKChannelMember previous = 1;
+  SKChannelMember latest = 2;
+}
+
 message SKDMChannelChangeSnapshot{
   SKDMChannel previous = 1;
   SKDMChannel latest = 2;
@@ -162,6 +167,11 @@ message SKPagedRequest{
   int32 limit = 2;
 }
 
+message SKInviteUserChannel{
+  string userId = 1;
+  string channelId = 2;
+}
+
 message SKWorkspaceChannelRequest{
   string workspaceId = 1;
   string channelId = 2;
@@ -204,11 +214,13 @@ service ChannelsService{
 
   rpc registerChangeInDMChannels(SKChannelRequest) returns (stream SKDMChannelChangeSnapshot);
   rpc registerChangeInChannels(SKChannelRequest) returns (stream SKChannelChangeSnapshot);
+  rpc registerChangeInChannelMembers(SKChannelMember) returns (stream SKChannelMemberChangeSnapshot);
 
   rpc savePublicChannel(SKChannel) returns (SKChannel);
   rpc saveDMChannel(SKDMChannel) returns(SKDMChannel);
 
   rpc joinChannel(SKChannelMember) returns(SKChannelMember);
+  rpc inviteUserToChannel(SKInviteUserChannel) returns(SKChannelMembers);
 
   rpc channelMembers(SKWorkspaceChannelRequest) returns(SKChannelMembers);
 }
