@@ -14,42 +14,42 @@ enum KeyAlgorithm {
 
 // Container for a RSA hybrid encryption ciphertext.
 message HybridRsaCiphertext {
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement symmetric_key_ciphertext = 1;
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement payload_ciphertext = 2;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement symmetrickeyciphertext = 1;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement payloadciphertext = 2;
 }
 
 // Container for a raw RSA public key and its associated metadata.
 message WrappedRsaEcdsaPublicKey {
   string padding = 1;
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement key_bytes = 2;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement keybytes = 2;
 }
 
 // Container for a tink Web Push public key parameters.
 message WrappedWebPushPublicKey {
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement auth_secret = 1;
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement key_bytes = 2;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement authsecret = 1;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement keybytes = 2;
 }
 
 // Container for a tink Web Push private key parameters.
 message WrappedWebPushPrivateKey {
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement auth_secret = 1;
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement public_key_bytes = 2;
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement private_key_bytes = 3;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement authsecret = 1;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement publickeybytes = 2;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement privatekeybytes = 3;
 }
 
 // Container for a Capillary public key and its associated metadata.
 message SlackPublicKey {
-  string keychain_unique_id = 1;
-  int32 serial_number = 2;
-  bool is_auth = 3;
-  repeated dev.baseio.slackdata.protos.SKByteArrayElement key_bytes = 4;
+  string keychainuniqueid = 1;
+  int32 serialnumber = 2;
+  bool isauth = 3;
+  repeated dev.baseio.slackdata.protos.SKByteArrayElement keybytes = 4;
 }
 
 // Container for a Slack ciphertext and its associated metadata.
 message SlackCiphertext {
-  string keychain_unique_id = 1;
-  int32 key_serial_number = 2;
-  bool is_auth_key = 3;
+  string keychainuniqueid = 1;
+  int32 keyserialnumber = 2;
+  bool isauthkey = 3;
   repeated dev.baseio.slackdata.protos.SKByteArrayElement ciphertext = 4;
 }
 
