@@ -1,0 +1,3 @@
+[submodule "capillary_kmp"]
+	path = capillary_kmp
+	url = https://github.com/oianmol/capillary-kmp
