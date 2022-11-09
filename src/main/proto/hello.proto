@@ -1,16 +1,15 @@
 syntax = "proto3";
+
+import "common.proto";
 import "securepushservice.proto";
 
 package dev.baseio.slackdata.protos;
 
 option java_multiple_files = true;
 
-message SKByteArrayElement{
-  int32 byte = 1;
-}
 
 message SKQrCodeResponse{
-  repeated SKByteArrayElement byteArray = 1;
+  repeated dev.baseio.slackdata.common.SKByteArrayElement byteArray = 1;
   int64 totalSize = 2;
   SKAuthResult authResult = 3;
 }
@@ -27,12 +26,12 @@ message SKMessage {
   string uuid = 1;
   string workspaceId = 2;
   string channelId = 3;
-  SKByteArrayElement text = 4;
+  dev.baseio.slackdata.common.SKByteArrayElement text = 4;
   string sender = 5;
   int64 createdDate = 6;
   int64 modifiedDate = 7;
   bool isDeleted = 8;
-  dev.baseio.slackdata.securepush.KeyAlgorithm keyAlgorithm = 9;
+  dev.baseio.slackdata.common.KeyAlgorithm keyAlgorithm = 9;
 }
 
 message SKLastMessage {
@@ -190,9 +189,7 @@ message SKCreateWorkspaceRequest{
   SKAuthUser user = 2;
 }
 
-message Empty {
-  string nothing = 1;
-}
+
 
 message SKFindWorkspacesRequest{
   string email = 1;
@@ -201,7 +198,7 @@ message SKFindWorkspacesRequest{
 }
 
 service WorkspaceService {
-  rpc getWorkspaces(Empty) returns (SKWorkspaces);
+  rpc getWorkspaces(dev.baseio.slackdata.common.Empty) returns (SKWorkspaces);
   rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspaceChangeSnapshot);
   rpc saveWorkspace(SKCreateWorkspaceRequest) returns (SKAuthResult);
   rpc findWorkspacesForEmail(SKFindWorkspacesRequest) returns(SKWorkspaces);
@@ -237,7 +234,7 @@ service UsersService{
   rpc getUsers(SKWorkspaceChannelRequest) returns (SKUsers);
   rpc registerChangeInUsers(SKWorkspaceChannelRequest) returns (stream SKUserChangeSnapshot);
   rpc saveUser(SKUser) returns (SKUser);
-  rpc currentLoggedInUser(Empty) returns (SKUser);
+  rpc currentLoggedInUser(dev.baseio.slackdata.common.Empty) returns (SKUser);
   rpc updateSKUser(SKUser) returns(SKUser);
 }
 
@@ -246,7 +243,7 @@ service AuthService {
   rpc login(SKAuthUser) returns (SKAuthResult);
   rpc resetPassword(SKAuthUser) returns (SKUser);
   rpc forgotPassword(SKAuthUser) returns (SKUser);
-  rpc changePassword(SKAuthUser) returns (Empty);
+  rpc changePassword(SKAuthUser) returns (dev.baseio.slackdata.common.Empty);
 }
 
 service QrCodeService{
