@@ -26,7 +26,7 @@ message SKMessage {
   string uuid = 1;
   string workspaceId = 2;
   string channelId = 3;
-  dev.baseio.slackdata.common.SKByteArrayElement text = 4;
+  repeated dev.baseio.slackdata.common.SKByteArrayElement text = 4;
   string sender = 5;
   int64 createdDate = 6;
   int64 modifiedDate = 7;
