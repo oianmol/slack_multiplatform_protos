@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "securepushservice.proto";
 
 package dev.baseio.slackdata.protos;
 
@@ -26,11 +27,12 @@ message SKMessage {
   string uuid = 1;
   string workspaceId = 2;
   string channelId = 3;
-  string text = 4;
+  SKByteArrayElement text = 4;
   string sender = 5;
   int64 createdDate = 6;
   int64 modifiedDate = 7;
   bool isDeleted = 8;
+  dev.baseio.slackdata.securepush.KeyAlgorithm keyAlgorithm = 9;
 }
 
 message SKLastMessage {
@@ -59,6 +61,7 @@ message SKUser {
   string phone = 9;
   string avatarUrl = 10;
   bool isDeleted = 11;
+  repeated dev.baseio.slackdata.securepush.SlackPublicKey publicKeys = 12;
 }
 
 message SKUserChangeSnapshot{
