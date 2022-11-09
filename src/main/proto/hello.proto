@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "common.proto";
-import "securepushservice.proto";
 
 package dev.baseio.slackdata.protos;
 
@@ -48,6 +47,10 @@ message SKWorkspace {
   bool isDeleted = 6;
 }
 
+message SlackPublicKey {
+  repeated dev.baseio.slackdata.common.SKByteArrayElement keybytes = 4;
+}
+
 message SKUser {
   string uuid = 1;
   string workspaceId = 2;
@@ -60,7 +63,7 @@ message SKUser {
   string phone = 9;
   string avatarUrl = 10;
   bool isDeleted = 11;
-  repeated dev.baseio.slackdata.securepush.SlackPublicKey publicKeys = 12;
+  repeated SlackPublicKey publicKeys = 12;
 }
 
 message SKUserChangeSnapshot{
