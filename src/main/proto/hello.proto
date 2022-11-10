@@ -63,7 +63,7 @@ message SKUser {
   string phone = 9;
   string avatarUrl = 10;
   bool isDeleted = 11;
-  repeated SlackPublicKey publicKeys = 12;
+  SlackPublicKey publicKey = 12;
 }
 
 message SKUserChangeSnapshot{
@@ -203,7 +203,7 @@ message SKFindWorkspacesRequest{
 service WorkspaceService {
   rpc getWorkspaces(dev.baseio.slackdata.common.Empty) returns (SKWorkspaces);
   rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspaceChangeSnapshot);
-  rpc saveWorkspace(SKCreateWorkspaceRequest) returns (SKAuthResult);
+  rpc letMeIn(SKCreateWorkspaceRequest) returns (SKAuthResult);
   rpc findWorkspacesForEmail(SKFindWorkspacesRequest) returns(SKWorkspaces);
   rpc findWorkspaceForName(SKFindWorkspacesRequest) returns(SKWorkspace);
   rpc updateWorkspace(SKWorkspace) returns(SKWorkspace);
@@ -242,8 +242,6 @@ service UsersService{
 }
 
 service AuthService {
-  rpc register(SKAuthUser) returns (SKAuthResult);
-  rpc login(SKAuthUser) returns (SKAuthResult);
   rpc resetPassword(SKAuthUser) returns (SKUser);
   rpc forgotPassword(SKAuthUser) returns (SKUser);
   rpc changePassword(SKAuthUser) returns (dev.baseio.slackdata.common.Empty);
