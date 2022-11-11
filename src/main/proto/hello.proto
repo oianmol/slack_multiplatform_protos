@@ -115,6 +115,7 @@ message SKDMChannel{
   int64 createdDate = 5;
   int64 modifiedDate = 6;
   bool isDeleted = 7;
+  SlackPublicKey publicKey = 8;
 }
 
 message SKChannel {
@@ -125,6 +126,7 @@ message SKChannel {
   int64 modifiedDate = 5;
   string avatarUrl = 6;
   bool isDeleted = 7;
+  SlackPublicKey publicKey = 8;
 }
 
 message SKWorkspaces {
