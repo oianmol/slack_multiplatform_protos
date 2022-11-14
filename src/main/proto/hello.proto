@@ -204,6 +204,13 @@ message SKFindWorkspacesRequest{
   SKPagedRequest paged = 3;
 }
 
+message SKPushToken{
+  string uuid = 1;
+  string token = 2;
+  string userId = 3;
+  int32 platform = 4;
+}
+
 service WorkspaceService {
   rpc getWorkspaces(dev.baseio.slackdata.common.Empty) returns (SKWorkspaces);
   rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspaceChangeSnapshot);
@@ -248,6 +255,7 @@ service UsersService{
 service AuthService {
   rpc resetPassword(SKAuthUser) returns (SKUser);
   rpc forgotPassword(SKAuthUser) returns (SKUser);
+  rpc savePushToken(SKPushToken) returns (dev.baseio.slackdata.common.Empty);
   rpc changePassword(SKAuthUser) returns (dev.baseio.slackdata.common.Empty);
 }
 
