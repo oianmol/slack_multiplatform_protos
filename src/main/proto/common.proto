@@ -11,8 +11,3 @@ message SKByteArrayElement{
 message Empty {
   string nothing = 1;
 }
-
-// The types of public keys.
-enum KeyAlgorithm {
-  RSA_ECDSA = 0;
-}

@@ -30,7 +30,6 @@ message SKMessage {
   int64 createdDate = 6;
   int64 modifiedDate = 7;
   bool isDeleted = 8;
-  dev.baseio.slackdata.common.KeyAlgorithm keyAlgorithm = 9;
 }
 
 message SKLastMessage {
@@ -47,8 +46,14 @@ message SKWorkspace {
   bool isDeleted = 6;
 }
 
-message SlackPublicKey {
+message SlackKey {
   repeated dev.baseio.slackdata.common.SKByteArrayElement keybytes = 4;
+}
+
+// A request to add the given user or update the FCM token of an existing user.
+message AddOrUpdateUserRequest {
+  string deviceid = 1;
+  string token = 2;
 }
 
 message SKUser {
@@ -63,7 +68,7 @@ message SKUser {
   string phone = 9;
   string avatarUrl = 10;
   bool isDeleted = 11;
-  SlackPublicKey publicKey = 12;
+  SlackKey publicKey = 12;
 }
 
 message SKUserChangeSnapshot{
@@ -101,7 +106,7 @@ message SKChannelMember{
   string channelId = 2;
   string memberId = 3;
   string workspaceId = 4;
-  SlackPublicKey channelPrivateKey = 5;
+  SlackKey channelPrivateKey = 5;
 }
 
 message SKChannelMembers{
@@ -116,7 +121,8 @@ message SKDMChannel{
   int64 createdDate = 5;
   int64 modifiedDate = 6;
   bool isDeleted = 7;
-  SlackPublicKey publicKey = 8;
+  SlackKey publicKey = 8;
+  SlackKey privateKey = 9;
 }
 
 message SKChannel {
@@ -127,7 +133,7 @@ message SKChannel {
   int64 modifiedDate = 5;
   string avatarUrl = 6;
   bool isDeleted = 7;
-  SlackPublicKey publicKey = 8;
+  SlackKey publicKey = 8;
 }
 
 message SKWorkspaces {
@@ -176,7 +182,7 @@ message SKPagedRequest{
 message SKInviteUserChannel{
   string userId = 1;
   string channelId = 2;
-  SlackPublicKey channelPrivateKey = 3;
+  SlackKey channelPrivateKey = 3;
 }
 
 message SKWorkspaceChannelRequest{
@@ -263,3 +269,8 @@ service QrCodeService{
   rpc generateQRCode(SKQrCodeGenerator) returns (stream SKQrCodeResponse);
   rpc verifyQrCode(SKQRAuthVerify) returns (SKAuthResult);
 }
+
+service SecurePushService {
+  rpc addOrUpdateUser (AddOrUpdateUserRequest) returns (dev.baseio.slackdata.common.Empty);
+}
+
