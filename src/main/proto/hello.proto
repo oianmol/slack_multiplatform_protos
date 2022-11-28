@@ -21,11 +21,16 @@ message SKQRAuthVerify{
   string token = 1;
 }
 
+message SKEncryptedMessage{
+  repeated dev.baseio.slackdata.common.SKByteArrayElement first = 1;
+  repeated dev.baseio.slackdata.common.SKByteArrayElement second = 2;
+}
+
 message SKMessage {
   string uuid = 1;
   string workspaceId = 2;
   string channelId = 3;
-  repeated dev.baseio.slackdata.common.SKByteArrayElement text = 4;
+  SKEncryptedMessage text = 4;
   string sender = 5;
   int64 createdDate = 6;
   int64 modifiedDate = 7;
