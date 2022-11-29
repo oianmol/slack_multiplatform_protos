@@ -111,7 +111,7 @@ message SKChannelMember{
   string channelId = 2;
   string memberId = 3;
   string workspaceId = 4;
-  SlackKey channelPrivateKey = 5;
+  SKEncryptedMessage channelPrivateKey = 5;
 }
 
 message SKChannelMembers{
@@ -187,7 +187,7 @@ message SKPagedRequest{
 message SKInviteUserChannel{
   string userId = 1;
   string channelId = 2;
-  SlackKey channelPrivateKey = 3;
+  SKEncryptedMessage channelPrivateKey = 3;
 }
 
 message SKWorkspaceChannelRequest{
