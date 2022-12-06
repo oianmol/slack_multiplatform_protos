@@ -224,7 +224,7 @@ message SKPushToken{
 service WorkspaceService {
   rpc getWorkspaces(dev.baseio.slackdata.common.Empty) returns (SKWorkspaces);
   rpc registerChangeInWorkspace(SKWorkspace) returns (stream SKWorkspaceChangeSnapshot);
-  rpc letMeIn(SKCreateWorkspaceRequest) returns (SKAuthResult);
+  rpc letMeIn(SKCreateWorkspaceRequest) returns (dev.baseio.slackdata.common.Empty);
   rpc findWorkspacesForEmail(SKFindWorkspacesRequest) returns(SKWorkspaces);
   rpc findWorkspaceForName(SKFindWorkspacesRequest) returns(SKWorkspace);
   rpc updateWorkspace(SKWorkspace) returns(SKWorkspace);
