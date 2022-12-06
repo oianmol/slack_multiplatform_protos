@@ -164,7 +164,6 @@ message SKMessages{
 
 message SKAuthUser {
   string email = 1;
-  string password = 2;
   SKUser user = 3;
 }
 
@@ -264,10 +263,7 @@ service UsersService{
 }
 
 service AuthService {
-  rpc resetPassword(SKAuthUser) returns (SKUser);
-  rpc forgotPassword(SKAuthUser) returns (SKUser);
   rpc savePushToken(SKPushToken) returns (dev.baseio.slackdata.common.Empty);
-  rpc changePassword(SKAuthUser) returns (dev.baseio.slackdata.common.Empty);
 }
 
 service QrCodeService{
